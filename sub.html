@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>오늘도 행복하세요, DUNKIN!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    mobile_menu();
+});
+
+function mobile_menu(){
+    /* 변수 선언 */
+    var $menu = null;
+    var $left_gnb = null; // 영역 전체
+    var $depth1_wrap = null;
+    var $depth1 = null;
+    var $depth1_btn = null;
+    
+    /* 시작 함수 */
+    function start(){
+        init();
+        init_event();
+    }
+    /* 변수 초기화 함수 */
+    function init(){
+        $menu = $('.m_menu');
+        $left_gnb = $('.left_gnbWrap'); // 영역 전체
+        $depth1_wrap = $('.left_gnb>li');
+        $depth1 = $depth1_wrap.children('ul');
+        $depth1_btn = $depth1_wrap.children('a');
+    }
+    /* 이벤트 함수 */
+    function init_event(){
+        
+        /* 모바일 메뉴 버튼 클릭했을때 모바일 메뉴영역 나오게 하기 */
+        $menu.click(function(event){
+            event.preventDefault();
+            $left_gnb.addClass('on');
+        });
+        
+        /* x버튼 눌렀을때 모바일 메뉴 닫기 */
+        $('.close').click(function(event){
+            event.preventDefault();
+
+            $left_gnb.removeClass('on');
+            
+            // x버튼 누르면 시간차 약간두고 소메뉴 닫히게 하기
+            setTimeout(function(){
+                $depth1_btn.removeClass('on');
+                $depth1.slideUp();
+            },300)
+        });
+        
+        /* depth1의 각메뉴 클릭시 depth2 나오게 하기 */
+        $depth1_btn.click(function(event){
+            event.preventDefault();
+            var $this = $(this);
+            var $this_ul = $this.siblings('ul');
+
+            var check = $this.hasClass('on');
+            if(check){
+                $this.removeClass('on');
+                $this_ul.stop(true,true).slideUp();
+            }else{
+                $depth1_btn.removeClass('on');
+                $depth1.stop().slideUp();
+                $this.addClass('on');
+                $this_ul.stop(true,true).slideDown();
+            }
+        });
+        
+        /* 디바이스 크기 변경시 모바일 메뉴영역 숨기기 */
+        $(window).resize(function(){
+            $left_gnb.removeClass('on');
+        });
+    }
+    
+    start(); // 시작 호출
+}
+</script>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div id="wrap">
+        <!-- 여기부터 상단 -->
+       <header id="header">
+           <div class="top_header">
+               <div class="inner">
+                   <ul class="site">
+                       <li>개인</li>
+                       <li>창업</li>
+                       <li><select>
+                           <option>SNS</option>
+                           <option>FACEBOOK</option>
+                           <option>INSTAGRAM</option>
+                           <option>TWITTER</option>
+                           <option>YOUTUBE</option>
+                       </select></li>
+                       <!-- clear -->
+                   </ul>
+                   <ul class="util">
+                       <li>로그인</li>
+                       <li>회원가입</li>
+                       <li>회사소개</li>
+                       <li>ENGLISH</li>
+                       <!-- clear -->
+                   </ul>
+               </div>
+           </div>
+           <div class="bottom_header">
+               <div class="inner">
+<ul class="menu">
+                        <li><a href="#">이달의도넛</a> 
+                         <ul class="submenu">
+                             <li><a href="sub.html">도넛정보</a></li>
+                              <li><a href="sub.html">홍보CF</a></li>
+                              
+                        </ul>                           
+                        </li>
+                        <li><a href="#">메뉴</a>
+                          <ul class="submenu">
+                             <li><a href="sub.html">도넛</a></li>
+                              <li><a href="sub.html">커피</a></li>
+                               <li><a href="sub.html">샌드위치</a></li>
+                               <li><a href="sub.html">음료</a></li>
+                               <li><a href="sub.html">기타</a></li>
+                        </ul>                           
+                        </li>
+                        <li><a href="#">이벤트</a>
+                          <ul class="submenu">
+                             <li><a href="sub.html">이벤트</a></li>
+                              <li><a href="sub.html">제휴혜택</a></li>                              
+                               
+                        </ul>                           </li>
+                    
+                        <!-- clear 부분 -->
+                    </ul> 
+                   
+                       <div class="logo">                          
+                          <a href="index.html">
+                        <img src="img/header_logo.png" alt="로고"></a>
+                          <span>던킨도너츠</span>
+                          
+                               <select class="h_btn">
+                           <option>개인</option>
+                           <option>창업</option>
+                       </select>
+                           
+                   </div>
+                   <div class="sub_menu">
+                       <ul class="side">
+                           <li><i><img src="img/icon1.png" alt="icon1"></i>온라인 스토어</li>
+                           <li><i><img src="img/icon2.png" alt="icon2"></i>단골 매장</li>
+                           <!-- clear -->
+                       </ul>
+                       <div class="search"><i><img src="img/search.png" alt="돋보기"></i></div>
+                        <div class="m_menu"><a href="#"><i><img src="img/m_menu.png" alt="모바일메뉴"></i></a></div>
+                       <nav class="left_gnbWrap">
+            <a href="#" class="close"><img src="img/close.png" alt="close_btn"></a>
+            <ul class="left_gnb">
+                                <li>
+                                    <a href="#">이달의 도넛</a>
+                                    <ul>
+                                        <li><a href="sub.html">도넛정보</a></li>
+                                        <li><a href="sub.html">신제품CF</a></li>
+
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">메뉴</a>
+                                    <ul>
+                                        <li><a href="sub.html">도넛</a></li>
+                                        <li><a href="sub.html">커피</a></li>
+                                        <li><a href="sub.html">샌드위치</a></li>
+                                        <li><a href="sub.html">음료</a></li>
+                                        <li><a href="sub.html">기타</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">이벤트</a>
+                                    <ul>
+                                        <li><a href="sub.html">이벤트</a></li>
+                                        <li><a href="sub.html">제휴혜택</a></li>
+
+                                    </ul>
+                                </li>
+                               
+                            </ul>
+        </nav>
+                       <!-- clear -->
+                   </div>
+                   <!-- clear -->
+               </div>
+           </div>
+       </header>
+        <!-- 여기까지 상단 -->
+
+
+        <!-- 여기부터 서브1 콘텐츠 -->
+        <main id="sub1-contents">
+            <section class="location">
+                <div class="inner">
+                    <ul>
+                        <li><img src="img/sub_d_logo.png" alt="디로고"></li>
+                        <li>
+                            <select>
+                                <option>&nbsp;&nbsp;도넛류</option>
+                                <option>&nbsp;&nbsp;커피류</option>
+                                 <option>&nbsp;&nbsp;기타류</option>
+                            </select>
+                        </li>
+                        <li>
+                            <select>
+                                <option>&nbsp;&nbsp;모닝콤보</option>
+                                <option>&nbsp;&nbsp;핫샌드위치콤보</option>
+                                <option>&nbsp;&nbsp;도넛콤보</option>
+                               
+                            </select>
+                        </li>
+                        <li>
+                            <select>
+                                <option>&nbsp;&nbsp;맞춤메뉴</option>
+                                <option>&nbsp;&nbsp;저칼로리추천</option>
+                                <option>&nbsp;&nbsp;맞춤검색</option>
+                                
+                            </select>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <section class="titlebodyimage">
+                <h1 class="hidden">서브이미지</h1>
+            </section>
+            <section class="goods_cons">
+                <h1 class="hidden">메뉴</h1>
+                
+                <div class="goods_spec">
+                    <dl>
+                        <dt><i><img src="img/sub_1.png" alt="sub_1"></i>DONUT</dt>
+                        <dd>
+                            <ul>
+                                <li>당신의 아침을 깨우는</li>
+                                <li>던킨도너츠의 커피&도넛</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i><img src="img/sub_2.png" alt="sub_2"></i>COFFEE</dt>
+                        <dd>
+                            <ul>
+                                <li>Real Body! Real Coffee!</li>
+                                <li>바디감이 좋은 진짜 커피. 던킨커피.</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i><img src="img/sub_3.png" alt="sub_3"></i>HOT SANDWICH</dt>
+                        <dd>
+                            <ul>
+                                <li>간편하게 든든한 한끼를 채우는</li>
+                                <li>Dunkin's Hot Sandwich!</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i><img src="img/sub_4.png" alt="sub_4"></i>BEVERAGE</dt>
+                        <dd>
+                            <ul>
+                                <li>시원하게, 상쾌하게,</li>
+                                <li>던킨 음료의 유혹에 빠져보세요!</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i><img src="img/sub_5.png" alt="sub_5"></i>OTHERS</dt>
+                        <dd>
+                            <ul>
+                                <li>50년 최상의 커피만을 선보여온 던킨</li>
+                                <li>코스타리카 커피 농부의 원두를 만나보세요!</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <!-- :after으로 clear:both -->
+                </div>
+            </section>
+            <section class="goods_addDiscount">
+                <h1 class="hidden">주문하러가기</h1>
+                <h3>주문하러 가기</h3>
+                <div class="goods_addDiscountspec">
+                    <div class="spce_l">
+                        <i class="i_smartgoldHd"><img src="img/order_1.png" alt="오더1"></i>
+                        <p class="txt1">나와 가장 가까운 던킨을 찾아보세요</p>
+                        <p class="sub_btn">던킨매장 찾기</p>
+                      
+                    </div>
+                    <div class="spce_r">
+                        <i class="i_smartgoldHd"><img src="img/order_2.png" alt="오더2"></i>
+                        <p class="txt1">언제, 어디서나 모두 함께 던킨을 즐기세요!</p>
+                     
+                        <p class="sub_btn">단체주문 서비스</p>
+                    </div>
+                    <!-- :after으로 clear:both -->
+                </div>
+                
+            </section>
+            <section class="sub_bottom">
+                <div class="inner">
+                    <ul>
+                        <li>페이스북</li>
+                        <li>블로그</li>
+                        <li>
+                            인스타그램
+                        </li>
+                        <li>트위터</li>
+                        <li>유튜브</li>
+                        <li>고객지원</li>
+                    </ul>
+                    <div>
+                        <select>
+                            <option>
+                                FAMILY SITE
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <!-- 여기까지 서브1 콘텐츠 -->
+
+        <!-- 여기부터 하단 -->
+<footer id="footer">
+           <div class="top_footer">
+               <div class="inner">
+                  <select class="family">
+                      <option>
+                          FAMILY SITE
+                      </option>
+                      <option>
+                          파리바게트
+                      </option>
+                  </select>
+                   <ul>
+                       <li>윤리신고센터</li>
+                       <li>이용약관</li>
+                       <li>개인정보처리방침</li>
+                       <li>영상정보처리기기운영관리방침</li>
+                       <li>이메일무단수집거부</li>
+                       <li>거래희망회사 사전등록</li>
+                       <li>채용안내</li>
+                   </ul>
+               </div>
+           </div>
+           <div class="bottom_footer">
+               <div class="inner">
+                   <div class="copyright">
+                       <ul>
+                           <li><span>주소</span>서울특별시 서초구 남부순환로 2620</li>
+                           <li><span>대표자</span>비알코리아(주) 대표이사 김창대</li>
+                           <li><span>사업자등록번호</span>303-81-09535</li>
+                           <li><span>개인정보보호책임자</span>
+                           김경우</li>
+                       </ul>
+                       <p>COPYRIGHT ⓒ 2016 BRKOREA COMPANY.ALL RIGHTS RESERVED.</p>
+                   </div>
+               <div class="info">
+                   <ul>
+                       <li><span>고객센터</span>080-555-3131</li>
+                       <li>(월~금 09:00 ~ 17:00 토,일,공휴일 휴무)</li>
+                   </ul>
+               </div>
+               <div class="f_logoset">
+                   <i><img src="img/footer_img_btn1.png" alt="f_1"></i>
+                   <i><img src="img/footer_img_btn2.png" alt="f_2"></i>
+                   <i><img src="img/footer_img_btn3.png" alt="f_3"></i>
+               </div>
+               
+               </div>
+           </div>
+       </footer>
+        <!-- 여기까지 하단 -->
+    </div>
+</body></html>
